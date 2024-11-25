@@ -1,0 +1,79 @@
+{
+  "name": "vue-composable-starter",
+  "type": "module",
+  "version": "1.0.0",
+  "packageManager": "pnpm@9.12.3",
+  "description": "🪝 Minimalist starting point for your next Vue Composable",
+  "author": "Yaël GUILLOUX <yael.guilloux@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/Tahul/vue-composable-starter#readme",
+  "repository": "https://github.com/Tahul/vue-composable-starter",
+  "bugs": {
+    "url": "https://github.com/Tahul/vue-composable-starter/issues"
+  },
+  "keywords": [
+    "vue",
+    "composable"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./nuxt": {
+      "import": "./dist/nuxt/module.mjs",
+      "require": "./dist/nuxt/module.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "pnpm dev:vite",
+    "build": "unbuild && pnpm build:nuxt-module",
+    "build:nuxt-module": "nuxt-module-build build ./src/nuxt --outDir ../../dist/nuxt",
+    "prepare": "pnpm prepare:nuxt",
+    "lint": "eslint --flag unstable_ts_config .",
+    "lint:fix": "pnpm run lint --fix",
+    "test:unit": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test": "pnpm test:unit && pnpm test:coverage",
+    "dev:nuxt": "pnpm --filter playgrounds-nuxt dev",
+    "dev:vite": "pnpm --filter playgrounds-vite dev",
+    "build:nuxt": "nuxi build playgrounds",
+    "start:nuxt": "nuxi preview playgrounds",
+    "prepare:nuxt": "pnpm --filter playgrounds-nuxt prepare:nuxt",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.8.0",
+    "@nuxt/kit": "^3.14.159",
+    "@nuxt/module-builder": "^0.8.4",
+    "@types/fs-extra": "^11.0.4",
+    "@vitest/coverage-v8": "^2.1.4",
+    "eslint": "^9.14.0",
+    "happy-dom": "^15.11.3",
+    "lint-staged": "^15.2.10",
+    "typescript": "^5.6.3",
+    "unbuild": "^2.0.0",
+    "vitepress": "^1.5.0",
+    "vitest": "^2.1.4"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  }
+}
