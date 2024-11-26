@@ -9,7 +9,7 @@ const {
   pause,
   resume,
   state,
-} = useMediaRecorder({ constraints: { audio: true, video: true } })
+} = useMediaRecorder({ constraints: { audio: true } })
 
 const length = computed(() => {
   return data.value.length ?? 0
