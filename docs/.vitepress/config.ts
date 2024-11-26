@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: '@orbisk/vue-use-media-recorder',
+  title: 'Vue Use Media Recorder',
   description: 'A Vue Composable for MediaRecorder API',
   vite: {
     resolve: {
@@ -19,20 +19,28 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/api-examples' },
+      { text: 'Installation', link: '/installation' },
+      { text: 'Usage', link: '/usage' },
+      { text: 'Examples', link: '/examples' },
     ],
 
     sidebar: [
       {
+        text: 'Installation',
+        link: '/installation',
+      },
+      {
+        text: 'Usage',
+        link: '/usage',
+      },
+      {
         text: 'Examples',
-        items: [
-          { text: 'Runtime API Examples', link: '/api-examples' },
-        ],
+        link: '/examples',
       },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+      { icon: 'github', link: 'https://github.com/OrbisK/vue-use-media-recorder' },
     ],
   },
 })

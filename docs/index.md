@@ -3,19 +3,22 @@
 layout: home
 
 hero:
-  name: "vue-composable-starter"
-  text: "A Vue Composable"
-  tagline: My great project tagline
+  name: "@orbisk/vue-use-media-recorder"
+  text: "A Vue Composable for the MediaRecorder API"
   actions:
     - theme: brand
-      text: API Examples
-      link: /api-examples
+      text: Installation
+      link: /installtion
+    - theme: secondary
+      text: Usage 
+      link: /usage
 
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+
+#features:
+#  - title: Feature A
+#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+#  - title: Feature B
+#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+#  - title: Feature C
+#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
