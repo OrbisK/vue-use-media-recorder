@@ -9,10 +9,6 @@
 
 - Add only dist and readme to bundle ([047e636](https://github.com/OrbisK/vue-use-media-recorder/commit/047e636))
 
-### ❤️ Contributors
-
-- Robin Kehl <robin.kehl@singular-it.de>
-
 ## v0.0.1
 
 
@@ -31,8 +27,3 @@
 ### ✅ Tests
 
 - Update mimetype and data tests ([2c585aa](https://github.com/OrbisK/vue-use-media-recorder/commit/2c585aa))
-
-### ❤️ Contributors
-
-- Robin Kehl <robin.kehl@singular-it.de>
-
