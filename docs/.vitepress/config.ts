@@ -5,6 +5,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Vue Use Media Recorder',
   description: 'A Vue Composable for MediaRecorder API',
+  base: '/vue-use-media-recorder/',
   vite: {
     resolve: {
       alias: [
