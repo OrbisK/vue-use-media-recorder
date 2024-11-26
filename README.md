@@ -1,5 +1,30 @@
 # 🪝 vue-use-media-recorder
 
+A Vue Composable for the MediaRecorder API
+
+## Features
+
+- 🎥 Record audio and video streams
+- 📦 Auto import for Nuxt
+- 🎨 TypeScript support
+- 📚 [Documentation](https://orbisk.github.io/vue-use-media-recorder/)
+
+## Installation
+
+```bash
+pnpm add -D @orbisk/vue-use-media-recorder
+```
+
+### Nuxt
+
+Auto import for Nuxt is supported. Just add the module to your `nuxt.config`:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@orbisk/vue-use-media-recorder/nuxt']
+})
+```
+
 ## Commands
 
 Build the package:
