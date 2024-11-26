@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: Installation
-      link: /installtion
+      link: /installation
     - theme: secondary
       text: Usage 
       link: /usage
