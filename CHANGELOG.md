@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/OrbisK/vue-use-media-recorder/compare/v0.0.2...v0.0.3)
+
+### 📖 Documentation
+
+- Exclude me from contributors ([3ea425e](https://github.com/OrbisK/vue-use-media-recorder/commit/3ea425e))
+
+### 🏡 Chore
+
+- Add git push to release workflow ([a456538](https://github.com/OrbisK/vue-use-media-recorder/commit/a456538))
+
 ## v0.0.2
 
 [compare changes](https://github.com/OrbisK/vue-use-media-recorder/compare/v0.0.1...v0.0.2)
