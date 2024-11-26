@@ -38,6 +38,11 @@
       ]
     }
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
   "scripts": {
     "dev": "pnpm dev:vite",
     "build": "unbuild && pnpm build:nuxt-module",
