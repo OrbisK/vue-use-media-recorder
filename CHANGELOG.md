@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.2
+
+[compare changes](https://github.com/OrbisK/vue-use-media-recorder/compare/v0.0.1...v0.0.2)
+
+### 🏡 Chore
+
+- Add only dist and readme to bundle ([047e636](https://github.com/OrbisK/vue-use-media-recorder/commit/047e636))
+
+### ❤️ Contributors
+
+- Robin Kehl <robin.kehl@singular-it.de>
+
 ## v0.0.1
 
 
