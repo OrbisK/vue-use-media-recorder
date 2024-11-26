@@ -127,7 +127,7 @@ describe('useMediaRecorder', () => {
     expect(state.value).toBe('inactive')
   })
 
-  it('data should exist when stoping from pause', async () => {
+  it('data should exist when stopping from pause', async () => {
     const {
       start,
       pause,

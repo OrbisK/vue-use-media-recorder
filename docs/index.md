@@ -14,11 +14,14 @@ hero:
       link: /usage
 
 
-#features:
-#  - title: Feature A
-#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-#  - title: Feature B
-#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-#  - title: Feature C
-#    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+features:
+  - title: Plug & play
+    icon: 🚀
+    details: Just import the composable and start recording
+  - title: First-class support for Nuxt
+    icon: 🚚
+    details: Auto import for Nuxt
+  - title: Written in TypeScript
+    icon: 🦄
+    details: Enjoy the benefits of TypeScript
 ---
