@@ -1,9 +1,9 @@
-import { shallowRef, ref, toValue, computed, watch } from 'vue'
-import type { MaybeRef } from 'vue'
 import type { ConfigurableNavigator } from '@vueuse/core'
+import type { MaybeRef } from 'vue'
 import { useSupported } from '@vueuse/core'
-import { defu } from 'defu'
 import { tryOnScopeDispose } from '@vueuse/shared'
+import { defu } from 'defu'
+import { computed, ref, shallowRef, toValue, watch } from 'vue'
 
 export { MediaRecorderPlugin } from './plugin'
 
@@ -20,7 +20,7 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
 
 const defaultOptions: UseMediaRecorderOptions = {
   constraints: { audio: false, video: false },
-  mediaRecorderOptions: {}
+  mediaRecorderOptions: {},
 }
 
 export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
@@ -29,7 +29,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
   const stream = shallowRef<MediaStream>()
 
   const isMimeTypeSupported = computed(() => {
-    return !!toValue(options.mediaRecorderOptions)?.mimeType ? MediaRecorder.isTypeSupported(toValue(options.mediaRecorderOptions)?.mimeType ?? '') : true
+    return toValue(options.mediaRecorderOptions)?.mimeType ? MediaRecorder.isTypeSupported(toValue(options.mediaRecorderOptions)?.mimeType ?? '') : true
   })
   const isSupported = useSupported(() => {
     return !!navigator?.mediaDevices?.getUserMedia && isMimeTypeSupported.value
@@ -45,7 +45,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
 
   const {
     mediaRecorderOptions,
-    constraints
+    constraints,
   } = defu(options, defaultOptions)
 
   const start = async (timeslice: number | undefined = undefined) => {
@@ -65,7 +65,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
   }
 
   const stop = () => {
-    if (state.value !== 'recording')
+    if (!state.value || state.value === 'inactive')
       return // todo warning?
     reset()
     updateStates()
@@ -112,7 +112,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     isSupported,
     isMimeTypeSupported,
     mimeType,
-    mediaRecorder: computed(() => mediaRecorder.value)
+    mediaRecorder: computed(() => mediaRecorder.value),
   }
 }
 

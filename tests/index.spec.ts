@@ -36,7 +36,6 @@ describe('useMediaRecorder', () => {
     expect(data.value?.length).toBe(0)
     await start(10)
     await new Promise(resolve => setTimeout(resolve, 100))
-    console.log(data.value)
     expect(data.value?.length).toBeGreaterThan(0)
   })
 
@@ -88,7 +87,7 @@ describe('useMediaRecorder', () => {
   it('mime type should be defined after recording', async () => {
     const {
       start,
-      mimeType
+      mimeType,
     } = useMediaRecorder({ constraints: { audio: true } })
     expect(mimeType.value).toBeUndefined()
     await start(10)
@@ -96,19 +95,51 @@ describe('useMediaRecorder', () => {
     expect(mimeType.value).toBeDefined()
   })
 
-  it('should be supported',()=>{
+  it('should be supported', () => {
     const {
-      isSupported
+      isSupported,
     } = useMediaRecorder({ constraints: { audio: true } })
     expect(isSupported.value).toBe(true)
   })
 
-  it('should not support unsupported mime type',()=>{
+  it('should not support unsupported mime type', () => {
     const {
       isSupported,
-      isMimeTypeSupported
+      isMimeTypeSupported,
     } = useMediaRecorder({ constraints: { audio: true, video: true }, mediaRecorderOptions: { mimeType: 'video/does-not-exist' } })
     expect(isSupported.value).toBe(false)
     expect(isMimeTypeSupported.value).toBe(false)
+  })
+
+  it('should be possible to stop recording when paused', async () => {
+    const {
+      start,
+      pause,
+      stop,
+      state,
+    } = useMediaRecorder({ constraints: { audio: true } })
+
+    await start()
+    expect(state.value).toBe('recording')
+    await pause()
+    expect(state.value).toBe('paused')
+    await stop()
+    expect(state.value).toBe('inactive')
+  })
+
+  it('data should exist when stoping from pause', async () => {
+    const {
+      start,
+      pause,
+      stop,
+      data,
+    } = useMediaRecorder({ constraints: { audio: true } })
+
+    expect(data.value).toHaveLength(0)
+    await start(10)
+    await new Promise(resolve => setTimeout(resolve, 100))
+    await pause()
+    await stop()
+    expect(data.value.length).toBeGreaterThan(0)
   })
 })

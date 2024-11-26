@@ -1,5 +1,5 @@
 import type { ChangelogConfig } from 'changelogen'
 
 export default {
-  excludeAuthors: ['robin.kehl@singular-it.de']
+  excludeAuthors: ['robin.kehl@singular-it.de'],
 } satisfies ChangelogConfig

@@ -14,18 +14,18 @@ export default defineWorkspace([
           context: {
             permissions: [
               'microphone',
-              'camera'
-            ]
+              'camera',
+            ],
           },
           launch: {
             args: [
               '--disable-web-security',
               '--use-fake-ui-for-media-stream',
-              '--use-fake-device-for-media-stream'
-            ]
-          }
-        }
-      }
-    }
-  }
+              '--use-fake-device-for-media-stream',
+            ],
+          },
+        },
+      },
+    },
+  },
 ])
