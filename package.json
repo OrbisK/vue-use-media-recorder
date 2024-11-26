@@ -63,7 +63,7 @@
     "docs:preview": "vitepress preview docs",
     "test:browser": "vitest --workspace=vitest.workspace.js",
     "prepack": "pnpm build",
-    "release": "pnpm test:unit && pnpm changelogen --release && pnpm publish --access public"
+    "release": "pnpm test:unit && pnpm changelogen --release && pnpm publish --access public && git push --follow-tags"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"
