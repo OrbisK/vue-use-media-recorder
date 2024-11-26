@@ -27,15 +27,15 @@ describe('useMediaRecorder', () => {
     expect(state.value).toMatchInlineSnapshot(`"inactive"`)
   })
 
-  it.skip('data should update when recording', async () => {
+  it('data should update when recording', async () => {
     const {
       start,
       data,
     } = useMediaRecorder({ constraints: { audio: true } })
     data.value = []
     expect(data.value?.length).toBe(0)
-    await start()
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await start(10)
+    await new Promise(resolve => setTimeout(resolve, 100))
     console.log(data.value)
     expect(data.value?.length).toBeGreaterThan(0)
   })
@@ -85,14 +85,14 @@ describe('useMediaRecorder', () => {
     expect(stream.value).toBeDefined()
   })
 
-  it.skip('mime type should be defined after recording', async () => {
+  it('mime type should be defined after recording', async () => {
     const {
       start,
       mimeType
     } = useMediaRecorder({ constraints: { audio: true } })
     expect(mimeType.value).toBeUndefined()
-    await start()
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await start(10)
+    await new Promise(resolve => setTimeout(resolve, 200))
     expect(mimeType.value).toBeDefined()
   })
 
