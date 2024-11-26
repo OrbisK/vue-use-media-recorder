@@ -1,7 +1,7 @@
 {
   "name": "@orbisk/vue-use-media-recorder",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@9.12.3",
   "description": "🪝 Vue Composable around MediaRecorder API",
   "author": "Robin Kehl <robin.kehl@singular-it.de>",
@@ -58,7 +58,7 @@
     "docs:preview": "vitepress preview docs",
     "test:browser": "vitest --workspace=vitest.workspace.js",
     "prepack": "pnpm build",
-    "release": "pnpm test:unit && pnpm changelogen --release && pnpm publish"
+    "release": "pnpm test:unit && pnpm changelogen --release && pnpm publish --access public"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"
