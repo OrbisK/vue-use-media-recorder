@@ -111,7 +111,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     state,
     isSupported,
     isMimeTypeSupported,
-    mimeType,
+    mimeType: computed(()=> mimeType.value),
     mediaRecorder: computed(() => mediaRecorder.value),
   }
 }
