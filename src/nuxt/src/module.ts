@@ -5,11 +5,11 @@ export interface ModuleOptions {}
 
 const DEFAULTS: ModuleOptions = {}
 
-const CONFIG_KEY = 'vue-composable-starter'
+const CONFIG_KEY = 'vue-use-media-recorder'
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'vue-composable-starter',
+    name: '@orbisk/vue-use-media-recorder',
     configKey: CONFIG_KEY,
   },
   defaults: DEFAULTS,
@@ -27,7 +27,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Transpile necessary packages
     if (!nuxt.options.build.transpile)
       nuxt.options.build.transpile = []
-    const transpileList = ['defu', 'vue-composable-starter', '@vueuse/shared', '@vueuse/core']
+    const transpileList = ['defu', '@orbisk/vue-use-media-recorder', '@vueuse/shared', '@vueuse/core']
     transpileList.forEach((pkgName) => {
       if (!nuxt.options.build.transpile.includes(pkgName))
         nuxt.options.build.transpile.push(pkgName)

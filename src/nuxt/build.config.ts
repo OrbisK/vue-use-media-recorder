@@ -3,7 +3,7 @@ import { defineBuildConfig } from 'unbuild'
 export default defineBuildConfig({
   // TODO: check if this is the correct value
   externals: [
-    'vue-composable-starter',
+    '@orbisk/vue-use-media-recorder',
     '@nuxt/kit',
     '@nuxt/schema',
     'nuxt3',

@@ -1,4 +1,4 @@
-# 🪝 vue-composable-starter
+# 🪝 vue-use-media-recorder
 
 A minimalist starting point for your next Vue 3 composable.
 

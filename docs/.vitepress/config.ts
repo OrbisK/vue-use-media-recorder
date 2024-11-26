@@ -3,13 +3,13 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'vue-composable-starter',
-  description: 'A Vue Composable',
+  title: '@orbisk/vue-use-media-recorder',
+  description: 'A Vue Composable for MediaRecorder API',
   vite: {
     resolve: {
       alias: [
         {
-          find: 'vue-composable-starter',
+          find: '@orbisk/vue-use-media-recorder',
           replacement: resolve(__dirname, '../../src/index.ts'),
         },
       ],

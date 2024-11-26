@@ -1,19 +1,20 @@
 {
-  "name": "vue-composable-starter",
+  "name": "@orbisk/vue-use-media-recorder",
   "type": "module",
   "version": "1.0.0",
   "packageManager": "pnpm@9.12.3",
-  "description": "🪝 Minimalist starting point for your next Vue Composable",
-  "author": "Yaël GUILLOUX <yael.guilloux@gmail.com>",
+  "description": "🪝 Vue Composable around MediaRecorder API",
+  "author": "Robin Kehl <robin.kehl@singular-it.de>",
   "license": "MIT",
-  "homepage": "https://github.com/Tahul/vue-composable-starter#readme",
-  "repository": "https://github.com/Tahul/vue-composable-starter",
+  "homepage": "https://github.com/OrbisK/vue-use-media-recorder#readme",
+  "repository": "https://github.com/OrbisK/vue-use-media-recorder",
   "bugs": {
-    "url": "https://github.com/Tahul/vue-composable-starter/issues"
+    "url": "https://github.com/OrbisK/vue-use-media-recorder/issues"
   },
   "keywords": [
     "vue",
-    "composable"
+    "composable",
+    "media-recorder"
   ],
   "sideEffects": false,
   "exports": {
@@ -54,7 +55,8 @@
     "prepare:nuxt": "pnpm --filter playgrounds-nuxt prepare:nuxt",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "test:browser": "vitest --workspace=vitest.workspace.js"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"
@@ -64,14 +66,20 @@
     "@nuxt/kit": "^3.14.159",
     "@nuxt/module-builder": "^0.8.4",
     "@types/fs-extra": "^11.0.4",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitest/browser": "^2.1.5",
     "@vitest/coverage-v8": "^2.1.4",
     "eslint": "^9.14.0",
+    "globby": "^14.0.2",
     "happy-dom": "^15.11.3",
     "lint-staged": "^15.2.10",
+    "nuxt": "^3.14.1592",
+    "playwright": "^1.49.0",
     "typescript": "^5.6.3",
     "unbuild": "^2.0.0",
     "vitepress": "^1.5.0",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.5",
+    "vitest-browser-vue": "^0.0.1"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

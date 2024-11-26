@@ -1,5 +1,8 @@
 // Components
-export { default as Toggle } from './components/Toggle.vue'
+// export { default as Toggle } from './components/Toggle.vue'
 
 // Composables
-export { useToggle } from './useToggle'
+export { useMediaRecorder } from './useMediaRecorder'
+
+// Types
+// export * from './types'

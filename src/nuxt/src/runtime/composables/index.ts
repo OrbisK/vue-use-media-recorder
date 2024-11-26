@@ -1,1 +1,1 @@
-export { useToggle } from 'vue-composable-starter'
+export { useMediaRecorder } from '@orbisk/vue-use-media-recorder'

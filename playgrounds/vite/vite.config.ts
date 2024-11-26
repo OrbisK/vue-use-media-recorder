@@ -9,7 +9,7 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: 'vue-composable-starter',
+        find: '@orbisk/vue-use-media-recorder',
         replacement: resolve(__dirname, '../../src/index.ts'),
       },
     ],
