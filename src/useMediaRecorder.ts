@@ -4,8 +4,7 @@ import { useSupported } from '@vueuse/core'
 import { tryOnScopeDispose } from '@vueuse/shared'
 import { defu } from 'defu'
 import { computed, ref, shallowRef, toValue, watch } from 'vue'
-
-export { MediaRecorderPlugin } from './plugin'
+import { computedWithControl } from '@vueuse/core'
 
 interface UseMediaRecorderOptions extends ConfigurableNavigator {
   /**
@@ -20,13 +19,14 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
 
 const defaultOptions: UseMediaRecorderOptions = {
   constraints: { audio: false, video: false },
-  mediaRecorderOptions: {},
+  mediaRecorderOptions: {}
 }
 
 export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
   const data = ref<Blob[]>([])
   const mediaRecorder = shallowRef<MediaRecorder>()
   const stream = shallowRef<MediaStream>()
+  const result = shallowRef<Blob[]>([])
 
   const isMimeTypeSupported = computed(() => {
     return toValue(options.mediaRecorderOptions)?.mimeType ? MediaRecorder.isTypeSupported(toValue(options.mediaRecorderOptions)?.mimeType ?? '') : true
@@ -35,54 +35,48 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     return !!navigator?.mediaDevices?.getUserMedia && isMimeTypeSupported.value
   })
 
-  const state = shallowRef<RecordingState | undefined>(undefined)
+  const state = computedWithControl<RecordingState | undefined>(()=>mediaRecorder.value,()=>{
+    return mediaRecorder.value?.state
+  })
 
-  const mimeType = shallowRef<string | undefined>(undefined)
+  const mimeType = computedWithControl<string | undefined>(() => mediaRecorder.value, () => {
+    return mediaRecorder.value?.mimeType
+  })
 
   const updateStates = () => {
-    state.value = mediaRecorder.value?.state
+    state.trigger()
   }
 
   const {
     mediaRecorderOptions,
-    constraints,
+    constraints
   } = defu(options, defaultOptions)
 
   const start = async (timeslice: number | undefined = undefined) => {
     if (state.value === 'recording')
       return // todo warning?
+    data.value = []
     stream.value = await navigator!.mediaDevices.getUserMedia(toValue(constraints))
     mediaRecorder.value = new MediaRecorder(stream.value, toValue(mediaRecorderOptions))
-    data.value = []
     mediaRecorder.value?.start(timeslice)
-    updateStates()
-  }
-
-  const reset = () => {
-    stream.value?.getTracks().forEach(t => t.stop())
-    stream.value = undefined
-    mediaRecorder.value?.stop()
   }
 
   const stop = () => {
     if (!state.value || state.value === 'inactive')
       return // todo warning?
-    reset()
-    updateStates()
+    mediaRecorder.value?.stop()
   }
 
   const pause = () => {
     if (state.value !== 'recording')
       return // todo warning?
     mediaRecorder.value?.pause()
-    updateStates()
   }
 
   const resume = () => {
     if (state.value !== 'paused')
       return // todo warning?
     mediaRecorder.value?.resume()
-    updateStates()
   }
 
   watch(() => mediaRecorder.value, (newMediaRecorder) => {
@@ -90,11 +84,18 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
       return
     newMediaRecorder.ondataavailable = (e) => {
       const blob = e.data
-      if (blob.type !== mimeType.value) {
-        mimeType.value = blob.type ?? mediaRecorder.value?.mimeType
-      }
+      mimeType.trigger()
       data.value.push(e.data)
     }
+    newMediaRecorder.onstop = () => {
+      stream.value?.getTracks().forEach(t => t.stop())
+      result.value = data.value
+      updateStates()
+    }
+    newMediaRecorder.onpause = updateStates
+    newMediaRecorder.onresume = updateStates
+    newMediaRecorder.onstart = updateStates
+    newMediaRecorder.onerror = updateStates
   }, { immediate: true })
 
   tryOnScopeDispose(() => {
@@ -112,7 +113,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     isSupported,
     isMimeTypeSupported,
     mimeType: computed(()=> mimeType.value),
-    mediaRecorder: computed(() => mediaRecorder.value),
+    mediaRecorder: computed(() => mediaRecorder.value)
   }
 }
 

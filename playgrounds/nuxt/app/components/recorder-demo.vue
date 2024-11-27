@@ -8,18 +8,18 @@ const { start, stop, pause, resume, data, state, isMimeTypeSupported, isSupporte
   },
 })
 function handleStop() {
+  console.log('stop')
   stop()
   const blob = new Blob(data.value)
   const blobVideo = new Blob(data.value)
   audio.value.src = URL.createObjectURL(blob)
   video.value.src = URL.createObjectURL(blobVideo)
-  data.value = []
 }
 </script>
 
 <template>
   <div>
-    <button @click="start()">
+    <button @click="start">
       start
     </button>
     <button @click="pause">
@@ -37,5 +37,6 @@ function handleStop() {
     <pre>supported: {{ isSupported }}</pre>
     <pre>mime type: {{ mimeType }}</pre>
     <pre>mime supported: {{ isMimeTypeSupported }}</pre>
+    <pre>data length: {{ data?.length}}</pre>
   </div>
 </template>

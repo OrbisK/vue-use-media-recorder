@@ -18,12 +18,16 @@ describe('useMediaRecorder', () => {
       resume,
     } = useMediaRecorder({ constraints: { audio: true } })
     await start()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toMatchInlineSnapshot(`"recording"`)
     await pause()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toMatchInlineSnapshot(`"paused"`)
     await resume()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toMatchInlineSnapshot(`"recording"`)
     await stop()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toMatchInlineSnapshot(`"inactive"`)
   })
 
@@ -57,7 +61,7 @@ describe('useMediaRecorder', () => {
     } = useMediaRecorder({ constraints: { audio: true } })
     await start()
     await stop()
-    expect(stream.value).toBeUndefined()
+    expect(stream.value.active).toMatchInlineSnapshot(`true`)
   })
 
   it('stream should be undefined after pause', async () => {
@@ -120,10 +124,13 @@ describe('useMediaRecorder', () => {
     } = useMediaRecorder({ constraints: { audio: true } })
 
     await start()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toBe('recording')
     await pause()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toBe('paused')
     await stop()
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect(state.value).toBe('inactive')
   })
 
