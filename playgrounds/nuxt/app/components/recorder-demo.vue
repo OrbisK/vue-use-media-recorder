@@ -24,7 +24,7 @@ function handleStop() {
 
 <template>
   <div>
-    <button @click="start">
+    <button @click="()=>start()">
       start
     </button>
     <button @click="pause">

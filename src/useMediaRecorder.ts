@@ -18,28 +18,38 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
   /**
    * Callback when recording starts.
    */
-  onStart?: () => any
+  onStart?: (ev: Event)=>any
   /**
    * Callback when recording pauses.
    */
-  onPause?: () => any
+  onPause?: (ev: Event)=>any
   /**
    * Callback when recording resumes.
    */
-  onResume?: () => any
+  onResume?: (ev: Event)=>any
   /**
    * Callback when recording stops.
    */
-  onStop?: () => any
+  onStop?: (ev: Event)=>any
+  /**
+   * Callback when an error occurs.
+   */
+  onError?: (ev: Event)=>any
 }
 
 const defaultOptions: UseMediaRecorderOptions = {
   constraints: { audio: false, video: false },
   mediaRecorderOptions: {},
-  onStart: () => {},
-  onPause: ()=> {},
-  onResume: ()=> {},
-  onStop: ()=> {},
+  onStart: () => {
+  },
+  onPause: () => {
+  },
+  onResume: () => {
+  },
+  onStop: () => {
+  },
+  onError: () => {
+  }
 }
 
 export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
@@ -55,11 +65,11 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     return !!navigator?.mediaDevices?.getUserMedia && isMimeTypeSupported.value
   })
 
-  const state = computedWithControl<RecordingState | undefined>(()=>mediaRecorder.value,()=>{
+  const state = computedWithControl<RecordingState | undefined, MediaRecorder | undefined>(() => mediaRecorder.value, () => {
     return mediaRecorder.value?.state
   })
 
-  const mimeType = computedWithControl<string | undefined>(() => mediaRecorder.value, () => {
+  const mimeType = computedWithControl<string | undefined, MediaRecorder | undefined>(() => mediaRecorder.value, () => {
     return mediaRecorder.value?.mimeType
   })
 
@@ -73,7 +83,9 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
       return // todo warning?
     data.value = []
     stream.value = await navigator!.mediaDevices.getUserMedia(toValue(constraints))
-    mediaRecorder.value = new MediaRecorder(stream.value, toValue(mediaRecorderOptions))
+    const mr = new MediaRecorder(stream.value, toValue(mediaRecorderOptions))
+    setupMediaRecorder(mr)
+    mediaRecorder.value = mr
     mediaRecorder.value?.start(timeslice)
   }
 
@@ -95,45 +107,44 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     mediaRecorder.value?.resume()
   }
 
-  watch(() => mediaRecorder.value, (newMediaRecorder) => {
+  const setupMediaRecorder = (newMediaRecorder: MediaRecorder) => {
     if (!newMediaRecorder)
       return
     newMediaRecorder.ondataavailable = (e) => {
-      const blob = e.data
       mimeType.trigger()
       data.value.push(e.data)
     }
-    newMediaRecorder.onstop = () => {
+    newMediaRecorder.onstop = (...args) => {
       stream.value?.getTracks().forEach(t => t.stop())
       result.value = data.value
       state.trigger()
       mimeType.trigger()
-      options.onStop?.()
+      options.onStop?.(...args)
     }
-    newMediaRecorder.onpause = ()=>{
+    newMediaRecorder.onpause = (...args) => {
       state.trigger()
       mimeType.trigger()
-      options.onPause?.()
+      options.onPause?.(...args)
     }
-    newMediaRecorder.onresume = ()=>{
+    newMediaRecorder.onresume = (...args) => {
       state.trigger()
       mimeType.trigger()
-      options.onResume?.()
+      options.onResume?.(...args)
     }
-    newMediaRecorder.onstart = ()=>{
+    newMediaRecorder.onstart = (...args) => {
       state.trigger()
       mimeType.trigger()
-      options.onStart?.()
+      options.onStart?.(...args)
     }
-    newMediaRecorder.onerror = ()=>{
+    newMediaRecorder.onerror = (...args) => {
       state.trigger()
       mimeType.trigger()
-      // TODO: error handling
+      options.onError?.(...args)
     }
-  }, { immediate: true })
+  }
 
   tryOnScopeDispose(() => {
-    reset()
+    mediaRecorder.value?.stop()
   })
 
   return {
@@ -146,7 +157,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     state,
     isSupported,
     isMimeTypeSupported,
-    mimeType: computed(()=> mimeType.value),
+    mimeType: computed(() => mimeType.value),
     mediaRecorder: computed(() => mediaRecorder.value)
   }
 }
