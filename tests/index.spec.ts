@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { useMediaRecorder } from '../src'
 
 describe('useMediaRecorder', () => {
@@ -148,5 +148,32 @@ describe('useMediaRecorder', () => {
     await pause()
     await stop()
     expect(data.value.length).toBeGreaterThan(0)
+  })
+
+  it('should call all lifecycle hooks', async () => {
+    const onStop = vi.fn()
+    const onStart = vi.fn()
+    const onPause = vi.fn()
+    const onResume = vi.fn()
+
+    const {
+      start,
+      pause,
+      resume,
+      stop,
+    } = useMediaRecorder({ constraints: { audio: true }, onStop, onStart, onPause, onResume })
+
+    await start()
+    pause()
+    await new Promise(resolve => setTimeout(resolve, 10))
+    resume()
+    stop()
+
+    await vi.waitFor( () => {
+      expect(onStart).toHaveBeenCalledTimes(1)
+      expect(onPause).toHaveBeenCalledTimes(1)
+      expect(onResume).toHaveBeenCalledTimes(1)
+      expect(onStop).toHaveBeenCalledTimes(1)
+    })
   })
 })

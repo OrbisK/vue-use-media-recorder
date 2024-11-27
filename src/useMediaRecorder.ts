@@ -15,11 +15,31 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
    * Options to pass to the MediaRecorder constructor.
    */
   mediaRecorderOptions?: MaybeRef<MediaRecorderOptions>
+  /**
+   * Callback when recording starts.
+   */
+  onStart?: () => any
+  /**
+   * Callback when recording pauses.
+   */
+  onPause?: () => any
+  /**
+   * Callback when recording resumes.
+   */
+  onResume?: () => any
+  /**
+   * Callback when recording stops.
+   */
+  onStop?: () => any
 }
 
 const defaultOptions: UseMediaRecorderOptions = {
   constraints: { audio: false, video: false },
-  mediaRecorderOptions: {}
+  mediaRecorderOptions: {},
+  onStart: () => {},
+  onPause: ()=> {},
+  onResume: ()=> {},
+  onStop: ()=> {},
 }
 
 export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
@@ -42,10 +62,6 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
   const mimeType = computedWithControl<string | undefined>(() => mediaRecorder.value, () => {
     return mediaRecorder.value?.mimeType
   })
-
-  const updateStates = () => {
-    state.trigger()
-  }
 
   const {
     mediaRecorderOptions,
@@ -90,12 +106,30 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     newMediaRecorder.onstop = () => {
       stream.value?.getTracks().forEach(t => t.stop())
       result.value = data.value
-      updateStates()
+      state.trigger()
+      mimeType.trigger()
+      options.onStop?.()
     }
-    newMediaRecorder.onpause = updateStates
-    newMediaRecorder.onresume = updateStates
-    newMediaRecorder.onstart = updateStates
-    newMediaRecorder.onerror = updateStates
+    newMediaRecorder.onpause = ()=>{
+      state.trigger()
+      mimeType.trigger()
+      options.onPause?.()
+    }
+    newMediaRecorder.onresume = ()=>{
+      state.trigger()
+      mimeType.trigger()
+      options.onResume?.()
+    }
+    newMediaRecorder.onstart = ()=>{
+      state.trigger()
+      mimeType.trigger()
+      options.onStart?.()
+    }
+    newMediaRecorder.onerror = ()=>{
+      state.trigger()
+      mimeType.trigger()
+      // TODO: error handling
+    }
   }, { immediate: true })
 
   tryOnScopeDispose(() => {

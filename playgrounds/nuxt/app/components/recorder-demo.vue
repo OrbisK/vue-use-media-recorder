@@ -1,11 +1,16 @@
 <script setup lang="ts">
 const audio = ref()
 const video = ref()
+
+const onStop = ()=>{
+  console.log("onstop")
+}
 const { start, stop, pause, resume, data, state, isMimeTypeSupported, isSupported, mimeType } = useMediaRecorder({
   constraints: {
     audio: true,
     video: false,
   },
+  onStop,
 })
 function handleStop() {
   console.log('stop')
