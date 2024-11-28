@@ -113,11 +113,16 @@ describe('useMediaRecorder component', () => {
       props: {
         constraints: { audio: true },
       },
+      slots: {
+        default: props => {
+          return props.mimeType
+        }
+      }
     })
-    expect(mediaRecorder.vm.mimeType).toBeUndefined()
-    await mediaRecorder.vm.start()
+    expect(mediaRecorder.text().length).toBe(0)
+    await mediaRecorder.vm.start(1)
     await vi.waitFor(() => {
-      expect(mediaRecorder.vm.mimeType).toBeDefined()
+      expect(mediaRecorder.text().length).toBeGreaterThan(0)
     })
   })
 
