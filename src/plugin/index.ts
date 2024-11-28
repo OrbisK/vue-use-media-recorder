@@ -1,13 +1,14 @@
 import type { App } from 'vue'
-import type { MediaRecorderPluginOptions } from '../types'
+import type { MediaRecorderPluginOptions } from '@orbisk/vue-use-media-recorder'
+import { UseMediaRecorder } from '@orbisk/vue-use-media-recorder'
 
 export const MediaRecorderPlugin = {
-  install(_app: App, _options?: MediaRecorderPluginOptions) {
+  install(app: App, _options?: MediaRecorderPluginOptions) {
     // app.provide(EXAMPLE, options?.example)
 
     // Add auto imports
 
-    // app.component('Toggle', ToggleComponent)
+    app.component('UseMediaRecorder', UseMediaRecorder)
   },
 }
 
