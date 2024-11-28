@@ -26,20 +26,9 @@ export default defineBuildConfig({
     '@vueuse/core',
   ],
   entries: [
-    // Plugin
-    {
-      input: 'src/index.ts',
-      outDir: 'dist',
-      name: 'index',
-      format: 'esm',
-      ext: 'mjs',
-    },
-    {
-      input: 'src/index.ts',
-      outDir: 'dist',
-      name: 'index',
-      format: 'cjs',
-      ext: 'cjs',
-    },
+    // *.vue -> *.vue
+    { builder: 'mkdist', input: './src',pattern: ['**/*.vue'], loaders: ['vue'] },
+    { builder: 'mkdist', input: './src', pattern: ['**/*.ts'], format: 'cjs', ext: 'cjs', loaders: ['js'] },
+    { builder: 'mkdist', input: './src', pattern: ['**/*.ts'], format: 'esm', ext: 'mjs', loaders: ['js'] },
   ],
 })
