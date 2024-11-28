@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const getUrlFromData = (data: BlobPart[], type?: string) => URL.createObjectURL(new Blob(data, {type}))
+const getUrlFromData = (data: BlobPart[], type?: string) => URL.createObjectURL(new Blob(data, { type }))
 
 const stopped = ref(false)
 </script>

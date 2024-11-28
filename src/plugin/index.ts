@@ -1,5 +1,5 @@
-import type { App } from 'vue'
 import type { MediaRecorderPluginOptions } from '@orbisk/vue-use-media-recorder'
+import type { App } from 'vue'
 import { UseMediaRecorder } from '@orbisk/vue-use-media-recorder'
 
 export const MediaRecorderPlugin = {

@@ -10,8 +10,8 @@ hero:
       text: Installation
       link: /installation
     - theme: secondary
-      text: Usage
-      link: /usage
+      text: Composables
+      link: /composables
 
 features:
   - title: Plug & play
@@ -23,4 +23,7 @@ features:
   - title: Written in TypeScript
     icon: 🦄
     details: Enjoy the benefits of TypeScript
+  - title: SFC Support
+    icon: 📦
+    details: Use the MediaRecorder as a Vue component
 ---

@@ -20,7 +20,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Installation', link: '/installation' },
-      { text: 'Usage', link: '/usage' },
+      { text: 'Composables', link: '/composables' },
       { text: 'Examples', link: '/examples' },
     ],
 
@@ -30,8 +30,12 @@ export default defineConfig({
         link: '/installation',
       },
       {
-        text: 'Usage',
-        link: '/usage',
+        text: 'Composables',
+        link: '/composables',
+      },
+      {
+        text: 'Components',
+        link: '/components',
       },
       {
         text: 'Examples',

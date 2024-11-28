@@ -45,7 +45,7 @@ function handleStartClick() {
 const audio = computed(() => {
   if (!data.value?.length || state.value !== 'inactive')
     return
-  const blob = new Blob(data.value, {type: mimeType.value})
+  const blob = new Blob(data.value, { type: mimeType.value })
   return URL.createObjectURL(blob)
 })
 </script>

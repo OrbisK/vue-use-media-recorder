@@ -114,10 +114,10 @@ describe('useMediaRecorder component', () => {
         constraints: { audio: true },
       },
       slots: {
-        default: props => {
+        default: (props) => {
           return props.mimeType
-        }
-      }
+        },
+      },
     })
     expect(mediaRecorder.text().length).toBe(0)
     await mediaRecorder.vm.start(1)

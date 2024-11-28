@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Usage
+# Composables
 
 ## `useMediaRecorder`
 
@@ -22,13 +22,13 @@ const {
   isMimeTypeSupported,
   mimeType,
   mediaRecorder,
-} = useMediaRecorder({ constraints: { audio: true, video: true } })
+} = useMediaRecorder(options)
 
 start()
 </script>
 ```
 
-## `useMediaRecorder` options
+### options
 
 ```ts
 interface UseMediaRecorderOptions extends ConfigurableNavigator {
@@ -40,6 +40,26 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
    * Options to pass to the MediaRecorder constructor.
    */
   mediaRecorderOptions?: MaybeRef<MediaRecorderOptions>
+  /**
+   * Callback when recording starts.
+   */
+  onStart?: (ev: Event) => any
+  /**
+   * Callback when recording pauses.
+   */
+  onPause?: (ev: Event) => any
+  /**
+   * Callback when recording resumes.
+   */
+  onResume?: (ev: Event) => any
+  /**
+   * Callback when recording stops.
+   */
+  onStop?: (ev: Event) => any
+  /**
+   * Callback when an error occurs.
+   */
+  onError?: (ev: Event) => any
 }
 ```
 
@@ -47,10 +67,20 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
 const defaultOptions: UseMediaRecorderOptions = {
   constraints: { audio: false, video: false },
   mediaRecorderOptions: {},
+  onStart: () => {
+  },
+  onPause: () => {
+  },
+  onResume: () => {
+  },
+  onStop: () => {
+  },
+  onError: () => {
+  },
 }
 ```
 
-### `constraints`
+#### `constraints`
 
 Type: `constraints?: MaybeRef<MediaStreamConstraints>`
 
@@ -62,7 +92,7 @@ By default, the constraints object is `{audio: false, video: false}`. You should
 `true` to get a stream/data.
 :::
 
-### `mediaRecorderOptions`
+#### `mediaRecorderOptions`
 
 Type: `mediaRecorderOptions?: MaybeRef<MediaRecorderOptions>`
 
@@ -77,9 +107,17 @@ interface MediaRecorderOptions {
 }
 ```
 
-## `useMediaRecorder` values
+#### Events
 
-### `data`
+- `onStart`: Emitted when the MediaRecorder starts recording.
+- `onPause`: Emitted when the MediaRecorder pauses recording.
+- `onResume`: Emitted when the MediaRecorder resumes recording.
+- `onStop`: Emitted when the MediaRecorder stops recording.
+- `onError`: Emitted when an error occurs.
+
+### values
+
+#### `data`
 
 - Type: `Ref<Blob[]>`
 - Initial value: `ref([])`
@@ -87,12 +125,12 @@ interface MediaRecorderOptions {
 An array of Blobs that are created by the MediaRecorder. The Blobs are created when the MediaRecorder is stopped. Or
 when the timeslice is set and the timeslice is reached.
 
-### `stream`
+#### `stream`
 
 - Type: `ShallowRef<MediaStream | undefined>`
 - Initial value: `shallowRef()`
 
-### `state`
+#### `state`
 
 - Type: `ShallowRef<MediaRecorderState | undefined>`
 - Initial value: `shallowRef()`
@@ -104,7 +142,7 @@ The current state of the MediaRecorder. The state can be one of the following:
 - `'recording'` - The MediaRecorder is recording data.
 - `'paused'` - The MediaRecorder is paused.
 
-### `mimeType`
+#### `mimeType`
 
 - Type: `ComputedRef<string | undefined>`
 - Initial value: `computed(()=>{})`
@@ -118,42 +156,42 @@ check if the mimeType
 is supported via [`isMimeTypeSupported`](#ismimetypesupported).
 :::
 
-### `isMimeTypeSupported`
+#### `isMimeTypeSupported`
 
 - Type: `ComputedRef<boolean>`
 
 If you set the mimeType manually, you can check if the mimeType is supported by the browser via this computed ref.
 
-### `isSupported`
+#### `isSupported`
 
 - Type: `ComputedRef<boolean>`
 
 If the MediaRecorder API (and the selected MIME type) is supported by the browser.
 
-### `mediaRecorder`
+#### `mediaRecorder`
 
 - Type: `ComputedRef<MediaRecorder | undefined>`
 - Initial value: `computed(()=>{})`
 
 The MediaRecorder instance. The MediaRecorder is created when the stream is available.
 
-## `useMediaRecorder` methods
+### methods
 
-### `start(timeslice: number | undefined): Promise<void>`
+#### `start(timeslice: number | undefined): Promise<void>`
 
 - MDN: [MediaRecorder.start()](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/start)
 
 Creates the stream and the MediaRecorder instance. The stream is created with the constraints object. The MediaRecorder
 is created with the stream and the mediaRecorderOptions object.
 
-### `pause(): void`
+#### `pause(): void`
 
 - MDN: [MediaRecorder.pause()](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/pause)
 
-### `resume(): void`
+#### `resume(): void`
 
 - MDN: [MediaRecorder.resume()](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/resume)
 
-### `stop(): void`
+#### `stop(): void`
 
 - MDN: [MediaRecorder.stop()](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/stop)

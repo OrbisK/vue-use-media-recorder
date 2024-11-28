@@ -27,7 +27,7 @@ export default defineBuildConfig({
   ],
   entries: [
     // *.vue -> *.vue
-    { builder: 'mkdist', input: './src',pattern: ['**/*.vue'], loaders: ['vue'] },
+    { builder: 'mkdist', input: './src', pattern: ['**/*.vue'], loaders: ['vue'] },
     { builder: 'mkdist', input: './src', pattern: ['**/*.ts'], format: 'cjs', ext: 'cjs', loaders: ['js'] },
     { builder: 'mkdist', input: './src', pattern: ['**/*.ts'], format: 'esm', ext: 'mjs', loaders: ['js'] },
   ],
