@@ -3,9 +3,9 @@ import { useMediaRecorder } from '@orbisk/vue-use-media-recorder'
 
 const props = defineProps({
   constraints: {
-    type: Object,
+    type: Object as PropType<MediaStreamConstraints>,
     required: true,
-    validator(value: any): boolean {
+    validator(value: MediaStreamConstraints) {
       if (!value?.audio && !value?.video) {
         console.error('constraints must have at least one of audio or video')
         return false
@@ -14,7 +14,7 @@ const props = defineProps({
     },
   },
   mediaRecorderOptions: {
-    type: Object,
+    type: Object as PropType<MediaRecorderOptions>,
     default: () => ({}),
   },
 })
