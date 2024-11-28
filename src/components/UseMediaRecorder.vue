@@ -5,11 +5,12 @@ const props = defineProps({
   constraints: {
     type: Object,
     required: true,
-    validator(value: unknown): boolean {
-      if (!value.audio && !value.video) {
+    validator(value: any): boolean {
+      if (!value?.audio && !value?.video) {
         console.error('constraints must have at least one of audio or video')
         return false
       }
+      return true
     },
   },
   mediaRecorderOptions: {
@@ -26,11 +27,11 @@ const emit = defineEmits<{
   error: [ev: Event]
 }>()
 
-const onStart = (...args) => emit('start', ...args)
-const onStop = (...args) => emit('stop', ...args)
-const onPause = (...args) => emit('pause', ...args)
-const onResume = (...args) => emit('resume', ...args)
-const onError = (...args) => emit('error', ...args)
+const onStart = (...args: [Event]) => emit('start', ...args)
+const onStop = (...args: [Event]) => emit('stop', ...args)
+const onPause = (...args: [Event]) => emit('pause', ...args)
+const onResume = (...args: [Event]) => emit('resume', ...args)
+const onError = (...args: [Event]) => emit('error', ...args)
 
 const {
   data,

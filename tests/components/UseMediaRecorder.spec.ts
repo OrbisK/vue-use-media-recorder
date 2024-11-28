@@ -63,13 +63,13 @@ describe('useMediaRecorder component', () => {
     await vi.waitFor(() => {
       // check if start emits an event from type Event with trusted true
       expect(mediaRecorder.emitted().start).toHaveLength(1)
-      expect(mediaRecorder.emitted().start[0]).toMatchObject([{ isTrusted: true }])
+      expect(mediaRecorder.emitted().start?.[0]).toMatchObject([{ isTrusted: true }])
     })
     await mediaRecorder.vm.stop()
     await vi.waitFor(() => {
       // check if stop emits an event from type Event with trusted true
       expect(mediaRecorder.emitted().stop).toHaveLength(1)
-      expect(mediaRecorder.emitted().stop[0]).toMatchObject([{ isTrusted: true }])
+      expect(mediaRecorder.emitted().stop?.[0]).toMatchObject([{ isTrusted: true }])
     })
   })
 
@@ -84,13 +84,13 @@ describe('useMediaRecorder component', () => {
     await vi.waitFor(() => {
       // check if start emits an event from type Event with trusted true
       expect(mediaRecorder.emitted().pause).toHaveLength(1)
-      expect(mediaRecorder.emitted().pause[0]).toMatchObject([{ isTrusted: true }])
+      expect(mediaRecorder.emitted().pause?.[0]).toMatchObject([{ isTrusted: true }])
     })
     mediaRecorder.vm.resume()
     await vi.waitFor(() => {
       // check if start emits an event from type Event with trusted true
       expect(mediaRecorder.emitted().resume).toHaveLength(1)
-      expect(mediaRecorder.emitted().resume[0]).toMatchObject([{ isTrusted: true }])
+      expect(mediaRecorder.emitted().resume?.[0]).toMatchObject([{ isTrusted: true }])
     })
   })
 

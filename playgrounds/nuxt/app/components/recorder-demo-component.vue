@@ -1,13 +1,5 @@
 <script setup lang="ts">
-// import { UseMediaRecorder} from '@orbisk/vue-use-media-recorder' // TODO: why?
-
-// function handleStop() {
-//   stop()
-//   const blob = new Blob(data.value)
-//   const blobVideo = new Blob(data.value)
-//   audio.value.src = URL.createObjectURL(blob)
-//   video.value.src = URL.createObjectURL(blobVideo)
-// }
+const getUrlFromData = (data: BlobPart[], type?: string) => URL.createObjectURL(new Blob(data, {type}))
 
 const stopped = ref(false)
 </script>
@@ -28,7 +20,7 @@ const stopped = ref(false)
         stop
       </button>
       <audio controls>
-        <source v-if="stopped" :src="URL.createObjectURL(new Blob(slotProps.data))">
+        <source v-if="stopped" :src="getUrlFromData(slotProps.data, slotProps.mimeType)">
       </audio>
       <pre>state: {{ slotProps.state }}</pre>
       <pre>supported: {{ slotProps.isSupported }}</pre>

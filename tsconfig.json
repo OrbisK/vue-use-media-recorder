@@ -5,5 +5,8 @@
       "@vitest/browser/providers/webdriverio",
       "@vitest/browser/providers/playwright"
     ]
-  }
+  },
+  "exclude": [
+    "dist"
+  ]
 }
