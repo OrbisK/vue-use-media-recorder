@@ -29,3 +29,5 @@ jobs:
         run: pnpm vitest run
       - name: Run type checks
         run: pnpm vue-tsc --noEmit
+      - name: Run linting
+        run: pnpm lint
