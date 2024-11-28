@@ -4,6 +4,11 @@ outline: deep
 
 # Examples
 
+::: warning
+Due to a [bug in WebKit (Safari)](https://bugs.webkit.org/show_bug.cgi?id=198015), the `<audio>` source blob does only
+work if you set an explicit `type` attribute. This is not a problem with the composable, but with the browser itself.
+:::
+
 ## Basic Example
 
 This is a basic example of how to use the `<script setup>` syntax in a Vue component.
