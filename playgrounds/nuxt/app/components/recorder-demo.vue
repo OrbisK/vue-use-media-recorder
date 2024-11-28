@@ -2,38 +2,32 @@
 const audio = ref()
 const video = ref()
 
-const onStop = ()=>{
-  console.log("onstop")
-}
 const { start, stop, pause, resume, data, state, isMimeTypeSupported, isSupported, mimeType } = useMediaRecorder({
   constraints: {
     audio: true,
     video: false,
   },
-  onStop,
+  onStop: () => {
+    const blob = new Blob(data.value)
+    const blobVideo = new Blob(data.value)
+    audio.value.src = URL.createObjectURL(blob)
+    video.value.src = URL.createObjectURL(blobVideo)
+  },
 })
-function handleStop() {
-  console.log('stop')
-  stop()
-  const blob = new Blob(data.value)
-  const blobVideo = new Blob(data.value)
-  audio.value.src = URL.createObjectURL(blob)
-  video.value.src = URL.createObjectURL(blobVideo)
-}
 </script>
 
 <template>
   <div>
-    <button @click="()=>start()">
+    <button @click="() => start()">
       start
     </button>
-    <button @click="pause">
+    <button @click="() => pause()">
       pause
     </button>
-    <button @click="resume">
+    <button @click="() => resume()">
       resume
     </button>
-    <button @click="handleStop">
+    <button @click="() => stop()">
       stop
     </button>
     <audio ref="audio" controls />
@@ -42,6 +36,6 @@ function handleStop() {
     <pre>supported: {{ isSupported }}</pre>
     <pre>mime type: {{ mimeType }}</pre>
     <pre>mime supported: {{ isMimeTypeSupported }}</pre>
-    <pre>data length: {{ data?.length}}</pre>
+    <pre>data length: {{ data?.length }}</pre>
   </div>
 </template>

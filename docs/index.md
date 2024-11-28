@@ -10,9 +10,8 @@ hero:
       text: Installation
       link: /installation
     - theme: secondary
-      text: Usage 
+      text: Usage
       link: /usage
-
 
 features:
   - title: Plug & play

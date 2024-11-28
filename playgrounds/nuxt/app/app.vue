@@ -5,5 +5,6 @@
 <template>
   <ClientOnly>
     <RecorderDemo />
+    <RecorderDemoComponent />
   </ClientOnly>
 </template>

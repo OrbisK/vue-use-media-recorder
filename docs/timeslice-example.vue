@@ -53,7 +53,7 @@ const audio = computed(() => {
   <div style="display: flex; flex-direction: column">
     <label for="timeslice">
       Timeslice (ms):
-      <input id="timeslice" type="number" v-model="timeslice"/>
+      <input id="timeslice" v-model="timeslice" type="number">
     </label>
     <button style="border-radius: 5px; background-color: greenyellow; color: black" @click="handleStartClick">
       {{ startBtnText }}

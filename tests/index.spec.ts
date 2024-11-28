@@ -1,5 +1,5 @@
+import { useMediaRecorder } from '@orbisk/vue-use-media-recorder'
 import { describe, expect, it, vi } from 'vitest'
-import { useMediaRecorder } from '../src'
 
 describe('useMediaRecorder', () => {
   it('state should be initially undefined', () => {
@@ -19,19 +19,19 @@ describe('useMediaRecorder', () => {
     } = useMediaRecorder({ constraints: { audio: true } })
     await start()
     await vi.waitFor(() => {
-      expect(state.value).toBe("recording")
+      expect(state.value).toBe('recording')
     })
     pause()
     await vi.waitFor(() => {
-      expect(state.value).toBe("paused")
+      expect(state.value).toBe('paused')
     })
     resume()
     await vi.waitFor(() => {
-      expect(state.value).toBe("recording")
+      expect(state.value).toBe('recording')
     })
     stop()
     await vi.waitFor(() => {
-      expect(state.value).toBe("inactive")
+      expect(state.value).toBe('inactive')
     })
   })
 
@@ -44,7 +44,7 @@ describe('useMediaRecorder', () => {
     expect(data.value?.length).toBe(0)
     await start(10)
     await new Promise(resolve => setTimeout(resolve, 100))
-    expect(data.value?.length).toBeGreaterThan(0)
+    expect(data.value?.length).toBe(1)
   })
 
   it('stream should be defined and active after start', async () => {
@@ -131,7 +131,7 @@ describe('useMediaRecorder', () => {
       pause,
       stop,
       state,
-      stream
+      stream,
     } = useMediaRecorder({ constraints: { audio: true } })
 
     await start()
@@ -162,7 +162,7 @@ describe('useMediaRecorder', () => {
     pause()
     stop()
     await vi.waitFor(() => {
-      expect(data.value.length).toBeGreaterThan(0)
+      expect(data.value.length).toBe(1)
     })
   })
 
@@ -192,8 +192,21 @@ describe('useMediaRecorder', () => {
       expect(onResume).toHaveBeenCalledTimes(1)
     })
     stop()
-    await vi.waitFor( () => {
+    await vi.waitFor(() => {
       expect(onStop).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  it('should have more than one data entry after recording with a timeslice', async () => {
+    const {
+      start,
+      data,
+    } = useMediaRecorder({ constraints: { audio: true } })
+
+    expect(data.value).toHaveLength(0)
+    await start(1)
+    await vi.waitFor(() => {
+      expect(data.value.length).toBeGreaterThan(1)
     })
   })
 })

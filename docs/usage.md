@@ -7,25 +7,24 @@ outline: deep
 ## `useMediaRecorder`
 
 ```vue
-
 <script setup>
-  import { useMediaRecorder } from '@orbisk/vue-use-media-recorder'
+import { useMediaRecorder } from '@orbisk/vue-use-media-recorder'
 
-  const {
-    data,
-    stream,
-    start,
-    pause,
-    resume,
-    stop,
-    state,
-    isSupported,
-    isMimeTypeSupported,
-    mimeType,
-    mediaRecorder,
-  } = useMediaRecorder({ constraints: { audio: true, video: true } })
+const {
+  data,
+  stream,
+  start,
+  pause,
+  resume,
+  stop,
+  state,
+  isSupported,
+  isMimeTypeSupported,
+  mimeType,
+  mediaRecorder,
+} = useMediaRecorder({ constraints: { audio: true, video: true } })
 
-  start()
+start()
 </script>
 ```
 
@@ -71,10 +70,10 @@ Type: `mediaRecorderOptions?: MaybeRef<MediaRecorderOptions>`
 
 ```ts
 interface MediaRecorderOptions {
-  audioBitsPerSecond?: number;
-  bitsPerSecond?: number;
-  mimeType?: string;
-  videoBitsPerSecond?: number;
+  audioBitsPerSecond?: number
+  bitsPerSecond?: number
+  mimeType?: string
+  videoBitsPerSecond?: number
 }
 ```
 

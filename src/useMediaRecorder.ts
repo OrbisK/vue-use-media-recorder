@@ -1,10 +1,9 @@
 import type { ConfigurableNavigator } from '@vueuse/core'
 import type { MaybeRef } from 'vue'
-import { useSupported } from '@vueuse/core'
+import { computedWithControl, useSupported } from '@vueuse/core'
 import { tryOnScopeDispose } from '@vueuse/shared'
 import { defu } from 'defu'
-import { computed, ref, shallowRef, toValue, watch } from 'vue'
-import { computedWithControl } from '@vueuse/core'
+import { computed, ref, shallowRef, toValue } from 'vue'
 
 interface UseMediaRecorderOptions extends ConfigurableNavigator {
   /**
@@ -18,23 +17,23 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
   /**
    * Callback when recording starts.
    */
-  onStart?: (ev: Event)=>any
+  onStart?: (ev: Event) => any
   /**
    * Callback when recording pauses.
    */
-  onPause?: (ev: Event)=>any
+  onPause?: (ev: Event) => any
   /**
    * Callback when recording resumes.
    */
-  onResume?: (ev: Event)=>any
+  onResume?: (ev: Event) => any
   /**
    * Callback when recording stops.
    */
-  onStop?: (ev: Event)=>any
+  onStop?: (ev: Event) => any
   /**
    * Callback when an error occurs.
    */
-  onError?: (ev: Event)=>any
+  onError?: (ev: Event) => any
 }
 
 const defaultOptions: UseMediaRecorderOptions = {
@@ -49,14 +48,13 @@ const defaultOptions: UseMediaRecorderOptions = {
   onStop: () => {
   },
   onError: () => {
-  }
+  },
 }
 
 export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
   const data = ref<Blob[]>([])
   const mediaRecorder = shallowRef<MediaRecorder>()
   const stream = shallowRef<MediaStream>()
-  const result = shallowRef<Blob[]>([])
 
   const isMimeTypeSupported = computed(() => {
     return toValue(options.mediaRecorderOptions)?.mimeType ? MediaRecorder.isTypeSupported(toValue(options.mediaRecorderOptions)?.mimeType ?? '') : true
@@ -75,8 +73,42 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
 
   const {
     mediaRecorderOptions,
-    constraints
+    constraints,
   } = defu(options, defaultOptions)
+
+  const setupMediaRecorder = (newMediaRecorder: MediaRecorder) => {
+    newMediaRecorder.ondataavailable = (e) => {
+      mimeType.trigger()
+      data.value.push(e.data)
+    }
+    newMediaRecorder.onstop = (...args) => {
+      stream.value?.getTracks().forEach(t => t.stop())
+      // result.value = data.value
+      state.trigger()
+      mimeType.trigger()
+      options.onStop?.(...args)
+    }
+    newMediaRecorder.onpause = (...args) => {
+      state.trigger()
+      mimeType.trigger()
+      options.onPause?.(...args)
+    }
+    newMediaRecorder.onresume = (...args) => {
+      state.trigger()
+      mimeType.trigger()
+      options.onResume?.(...args)
+    }
+    newMediaRecorder.onstart = (...args) => {
+      state.trigger()
+      mimeType.trigger()
+      options.onStart?.(...args)
+    }
+    newMediaRecorder.onerror = (...args) => {
+      state.trigger()
+      mimeType.trigger()
+      options.onError?.(...args)
+    }
+  }
 
   const start = async (timeslice: number | undefined = undefined) => {
     if (state.value === 'recording')
@@ -107,42 +139,6 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     mediaRecorder.value?.resume()
   }
 
-  const setupMediaRecorder = (newMediaRecorder: MediaRecorder) => {
-    if (!newMediaRecorder)
-      return
-    newMediaRecorder.ondataavailable = (e) => {
-      mimeType.trigger()
-      data.value.push(e.data)
-    }
-    newMediaRecorder.onstop = (...args) => {
-      stream.value?.getTracks().forEach(t => t.stop())
-      result.value = data.value
-      state.trigger()
-      mimeType.trigger()
-      options.onStop?.(...args)
-    }
-    newMediaRecorder.onpause = (...args) => {
-      state.trigger()
-      mimeType.trigger()
-      options.onPause?.(...args)
-    }
-    newMediaRecorder.onresume = (...args) => {
-      state.trigger()
-      mimeType.trigger()
-      options.onResume?.(...args)
-    }
-    newMediaRecorder.onstart = (...args) => {
-      state.trigger()
-      mimeType.trigger()
-      options.onStart?.(...args)
-    }
-    newMediaRecorder.onerror = (...args) => {
-      state.trigger()
-      mimeType.trigger()
-      options.onError?.(...args)
-    }
-  }
-
   tryOnScopeDispose(() => {
     mediaRecorder.value?.stop()
   })
@@ -158,7 +154,7 @@ export function useMediaRecorder(options: UseMediaRecorderOptions = {}) {
     isSupported,
     isMimeTypeSupported,
     mimeType: computed(() => mimeType.value),
-    mediaRecorder: computed(() => mediaRecorder.value)
+    mediaRecorder: computed(() => mediaRecorder.value),
   }
 }
 

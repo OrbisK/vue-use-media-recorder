@@ -8,7 +8,6 @@ outline: deep
 
 This is a basic example of how to use the `<script setup>` syntax in a Vue component.
 
-
 <script setup>
 import BasicExample from './basic-example.vue'
 import TimesliceExample from './timeslice-example.vue'
@@ -20,7 +19,6 @@ import TimesliceExample from './timeslice-example.vue'
 
 <<< @/basic-example.vue
 
-
 ## Set timeslice
 
 You can control the timeslice of the data Blob creation. See [
@@ -29,6 +27,5 @@ information. The default value is `undefined` (this means that the timeslice is 
 stopping).
 
 <TimesliceExample />
-
 
 <<< @/timeslice-example.vue {40}
