@@ -1,5 +1,5 @@
 import type { ConfigurableNavigator } from '@vueuse/core'
-import type { MaybeRef, MaybeRefOrGetter } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
 import { computedWithControl, useSupported } from '@vueuse/core'
 import { tryOnScopeDispose } from '@vueuse/shared'
 import { defu } from 'defu'

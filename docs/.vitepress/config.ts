@@ -1,11 +1,11 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
-import { withMermaid } from "vitepress-plugin-mermaid";
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid(defineConfig({
   title: 'Vue Use Media Recorder',
-  mermaid:{
+  mermaid: {
   },
   description: 'A Vue Composable for MediaRecorder API',
   base: '/vue-use-media-recorder/',

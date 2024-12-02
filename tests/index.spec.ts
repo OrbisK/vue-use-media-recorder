@@ -216,7 +216,7 @@ describe('useMediaRecorder', () => {
       start,
       pause,
       data,
-    } = useMediaRecorder({ constraints: {audio: true} })
+    } = useMediaRecorder({ constraints: { audio: true } })
 
     await start(1)
     await vi.waitFor(() => {
@@ -293,6 +293,5 @@ describe('useMediaRecorder', () => {
     await vi.waitFor(() => {
       expect(stream.value).toBeDefined()
     })
-
   })
 })
