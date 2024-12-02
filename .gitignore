@@ -50,3 +50,5 @@ coverage
 Network Trash Folder
 Temporary Items
 .apdisk
+
+/tests/__screenshots__/

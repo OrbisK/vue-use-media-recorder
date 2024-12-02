@@ -1,5 +1,5 @@
 import type { ConfigurableNavigator } from '@vueuse/core'
-import type { MaybeRef } from 'vue'
+import type { MaybeRef, MaybeRefOrGetter } from 'vue'
 import { computedWithControl, useSupported } from '@vueuse/core'
 import { tryOnScopeDispose } from '@vueuse/shared'
 import { defu } from 'defu'
@@ -9,11 +9,11 @@ interface UseMediaRecorderOptions extends ConfigurableNavigator {
   /**
    * The constraints parameter is a MediaStreamConstraints object specifying the types of media to request, along with any requirements for each type.
    */
-  constraints?: MaybeRef<MediaStreamConstraints>
+  constraints?: MaybeRefOrGetter<MediaStreamConstraints>
   /**
    * Options to pass to the MediaRecorder constructor.
    */
-  mediaRecorderOptions?: MaybeRef<MediaRecorderOptions>
+  mediaRecorderOptions?: MaybeRefOrGetter<MediaRecorderOptions>
   /**
    * Callback when recording starts.
    */

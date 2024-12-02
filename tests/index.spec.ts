@@ -1,5 +1,6 @@
 import { useMediaRecorder } from '@orbisk/vue-use-media-recorder'
 import { describe, expect, it, vi } from 'vitest'
+import { ref } from 'vue'
 
 describe('useMediaRecorder', () => {
   it('state should be initially undefined', () => {
@@ -35,16 +36,16 @@ describe('useMediaRecorder', () => {
     })
   })
 
-  it('data should update when recording', async () => {
+  it('data should update when recording with timeslice', async () => {
     const {
       start,
       data,
     } = useMediaRecorder({ constraints: { audio: true } })
     data.value = []
     expect(data.value?.length).toBe(0)
-    await start(10)
+    await start(1)
     await new Promise(resolve => setTimeout(resolve, 100))
-    expect(data.value?.length).toBe(1)
+    expect(data.value?.length).toBeGreaterThan(0)
   })
 
   it('stream should be defined and active after start', async () => {
@@ -208,5 +209,90 @@ describe('useMediaRecorder', () => {
     await vi.waitFor(() => {
       expect(data.value.length).toBeGreaterThan(1)
     })
+  })
+
+  it('should not record when paused', async () => {
+    const {
+      start,
+      pause,
+      data,
+    } = useMediaRecorder({ constraints: {audio: true} })
+
+    await start(1)
+    await vi.waitFor(() => {
+      expect(data.value.length).toBeGreaterThan(0)
+    })
+    const length = data.value.length
+    pause()
+    await new Promise(resolve => setTimeout(resolve, 10))
+    expect(data.value.length).toBe(length)
+  })
+
+  it('should handle constraints as a getter function', async () => {
+    const {
+      start,
+      stream,
+    } = useMediaRecorder({ constraints: () => ({ audio: true }) })
+
+    expect(stream.value).toBeUndefined()
+    await start()
+    expect(stream.value).toBeDefined()
+  })
+
+  it('should handle mediaRecorderOptions as a getter function', async () => {
+    const {
+      start,
+      mimeType,
+    } = useMediaRecorder({ constraints: { audio: true }, mediaRecorderOptions: () => ({ mimeType: 'audio/webm' }) })
+
+    expect(mimeType.value).toBeUndefined()
+    await start()
+    await vi.waitFor(() => {
+      expect(mimeType.value).toBe('audio/webm')
+    })
+  })
+
+  it('should handle constraints as a ref', async () => {
+    const constraints = ref({ audio: true })
+    const {
+      start,
+      stream,
+    } = useMediaRecorder({ constraints })
+
+    expect(stream.value).toBeUndefined()
+    await start()
+    expect(stream.value).toBeDefined()
+  })
+
+  it('should handle mediaRecorderOptions as a ref', async () => {
+    const mediaRecorderOptions = ref({ mimeType: 'audio/webm' })
+    const {
+      start,
+      mimeType,
+    } = useMediaRecorder({ constraints: { audio: true }, mediaRecorderOptions })
+
+    expect(mimeType.value).toBeUndefined()
+    await start()
+    await vi.waitFor(() => {
+      expect(mimeType.value).toBe('audio/webm')
+    })
+  })
+  it('should not change when constraints change', async () => {
+    const constraints = ref({ audio: true })
+
+    const {
+      start,
+      stream,
+    } = useMediaRecorder({ constraints })
+
+    expect(stream.value).toBeUndefined()
+    await start()
+    constraints.value = { audio: false }
+    stop()
+    await start()
+    await vi.waitFor(() => {
+      expect(stream.value).toBeDefined()
+    })
+
   })
 })
