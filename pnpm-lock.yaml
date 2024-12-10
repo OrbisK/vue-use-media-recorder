@@ -32,7 +32,7 @@ importers:
         version: 5.2.1(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vue@3.5.13(typescript@5.6.3))
       '@vitest/browser':
         specifier: ^2.1.5
-        version: 2.1.5(@types/node@22.10.1)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
+        version: 2.1.5(@types/node@22.10.1)(playwright@1.49.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
       '@vitest/coverage-v8':
         specifier: ^2.1.4
         version: 2.1.4(@vitest/browser@2.1.5)(vitest@2.1.5)
@@ -59,7 +59,7 @@ importers:
         version: 3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.10.1)(eslint@9.16.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@3.29.5)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vue-tsc@2.1.10(typescript@5.6.3))
       playwright:
         specifier: ^1.49.0
-        version: 1.49.0
+        version: 1.49.1
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -4303,13 +4303,13 @@ packages:
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
 
-  playwright-core@1.49.0:
-    resolution: {integrity: sha512-R+3KKTQF3npy5GTiKH/T+kdhoJfJojjHESR1YEWhYuEKRVfVaxH3+4+GvXE5xyCngCxhxnykk0Vlah9v8fs3jA==}
+  playwright-core@1.49.1:
+    resolution: {integrity: sha512-BzmpVcs4kE2CH15rWfzpjzVGhWERJfmnXmniSyKeRZUs9Ws65m+RGIi7mjJK/euCegfn3i7jvqWeWyHe9y3Vgg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.49.0:
-    resolution: {integrity: sha512-eKpmys0UFDnfNb3vfsf8Vx2LEOtflgRebl0Im2eQQnYMA4Aqd+Zw8bEOB+7ZKvN76901mRnqdsiOGKxzVTbi7A==}
+  playwright@1.49.1:
+    resolution: {integrity: sha512-VYL8zLoNTBxVOrJBbDuRgDWa3i+mfQgDTrL8Ah9QXZ7ax4Dsj0MSq5bYgytRnDVVe+njoKnfsYkH3HzqVj5UZA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7598,7 +7598,7 @@ snapshots:
       vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
       vue: 3.5.13(typescript@5.6.3)
 
-  '@vitest/browser@2.1.5(@types/node@22.10.1)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)':
+  '@vitest/browser@2.1.5(@types/node@22.10.1)(playwright@1.49.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
@@ -7611,7 +7611,7 @@ snapshots:
       vitest: 2.1.5(@types/node@22.10.1)(@vitest/browser@2.1.5)(happy-dom@15.11.7)(msw@2.6.6(@types/node@22.10.1)(typescript@5.6.3))(terser@5.36.0)
       ws: 8.18.0
     optionalDependencies:
-      playwright: 1.49.0
+      playwright: 1.49.1
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -7635,7 +7635,7 @@ snapshots:
       tinyrainbow: 1.2.0
       vitest: 2.1.5(@types/node@22.10.1)(@vitest/browser@2.1.5)(happy-dom@15.11.7)(msw@2.6.6(@types/node@22.10.1)(typescript@5.6.3))(terser@5.36.0)
     optionalDependencies:
-      '@vitest/browser': 2.1.5(@types/node@22.10.1)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.10.1)(playwright@1.49.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -10944,11 +10944,11 @@ snapshots:
       mlly: 1.7.3
       pathe: 1.1.2
 
-  playwright-core@1.49.0: {}
+  playwright-core@1.49.1: {}
 
-  playwright@1.49.0:
+  playwright@1.49.1:
     dependencies:
-      playwright-core: 1.49.0
+      playwright-core: 1.49.1
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -12160,7 +12160,7 @@ snapshots:
 
   vitest-browser-vue@0.0.1(@vitest/browser@2.1.5)(vitest@2.1.5)(vue@3.5.13(typescript@5.6.3)):
     dependencies:
-      '@vitest/browser': 2.1.5(@types/node@22.10.1)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.10.1)(playwright@1.49.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
       '@vue/test-utils': 2.4.6
       vitest: 2.1.5(@types/node@22.10.1)(@vitest/browser@2.1.5)(happy-dom@15.11.7)(msw@2.6.6(@types/node@22.10.1)(typescript@5.6.3))(terser@5.36.0)
       vue: 3.5.13(typescript@5.6.3)
@@ -12189,7 +12189,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.1
-      '@vitest/browser': 2.1.5(@types/node@22.10.1)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.10.1)(playwright@1.49.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(vitest@2.1.5)
       happy-dom: 15.11.7
     transitivePeerDependencies:
       - less
