@@ -99,13 +99,13 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
-        version: 5.2.1(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(vue@3.5.13(typescript@5.6.3))
+        version: 5.2.1(vite@6.1.0(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.6.3))
       typescript:
         specifier: ~5.6.2
         version: 5.6.3
       vite:
-        specifier: ^5.4.10
-        version: 5.4.14(@types/node@22.10.7)(terser@5.37.0)
+        specifier: ^6.0.0
+        version: 6.1.0(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(yaml@2.7.0)
       vue-tsc:
         specifier: ^2.1.8
         version: 2.2.0(typescript@5.6.3)
